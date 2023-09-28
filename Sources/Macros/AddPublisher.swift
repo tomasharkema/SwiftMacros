@@ -9,8 +9,7 @@ public struct AddPublisher: PeerMacro {
                                                                   providingPeersOf declaration: Declaration,
                                                                   in context: Context) throws -> [DeclSyntax] {
         guard let variableDecl = declaration.as(VariableDeclSyntax.self),
-              let modifiers = variableDecl.modifiers,
-              modifiers.map({ $0.name.text }).contains("private") else {
+              variableDecl.modifiers.map({ $0.name.text }).contains("private") else {
                   throw MacroDiagnostics.errorMacroUsage(message: "Please make the subject private and use the automated generated publisher variable outsite of this type")
               }
         guard let binding = variableDecl.bindings.first,

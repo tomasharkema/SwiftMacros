@@ -28,7 +28,7 @@ public struct Singleton: MemberMacro {
         let staticModifier = DeclModifierSyntax(name: staticToken)
         var modifiers = ModifierListSyntax([staticModifier])
 
-        let isPublicACL = declaration.modifiers?.compactMap(\.name.tokenKind.keyword).contains(.public) ?? false
+        let isPublicACL = declaration.modifiers.compactMap(\.name.tokenKind.keyword).contains(.public) ?? false
         if isPublicACL {
             let publicToken: TokenSyntax = "public"
             let publicModifier = DeclModifierSyntax(name: publicToken)

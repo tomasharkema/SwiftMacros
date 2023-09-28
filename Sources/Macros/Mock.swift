@@ -24,9 +24,11 @@ public struct Mock: PeerMacro {
             return "\(name): \(mockValue)"
         }
         var varDelcaration: DeclSyntax = "static let mock = \(raw: typeName)(\(raw: parameters.joined(separator: ", ")))"
-        if let modifiers = initializer.modifiers {
-            varDelcaration = "\(modifiers)\(varDelcaration)"
-        }
+//        if 
+            let modifiers = initializer.modifiers 
+//        {
+            varDelcaration = "\(modifiers)\n\(varDelcaration)"
+//        }
         varDelcaration = "#if DEBUG\n\(varDelcaration)\n#endif"
         return [varDelcaration]
     }

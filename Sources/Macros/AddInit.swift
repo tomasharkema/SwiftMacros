@@ -14,9 +14,11 @@ public struct AddInit: MemberMacro {
         let (parameters, body) = initBodyAndParams(for: declaration)
         let bodyExpr: ExprSyntax = "\(raw: body.joined(separator: "\n"))"
         var parametersLiteral = "init(\(parameters.joined(separator: ", ")))"
-        if let modifiers = declaration.modifiers {
+//        if 
+            let modifiers = declaration.modifiers
+//        {
             parametersLiteral = "\(modifiers)\(parametersLiteral)"
-        }
+//        }
         let initDecl = try InitializerDeclSyntax(PartialSyntaxNodeString(stringLiteral: parametersLiteral),
                                                  bodyBuilder: { bodyExpr })
         var result = [DeclSyntax(initDecl)]
@@ -66,9 +68,11 @@ public struct AddInit: MemberMacro {
             return "\(identifier): \(mockValue)"
         }
         var varDelcaration: DeclSyntax = "static let mock = \(raw: identifier)(\(raw: parameters.joined(separator: ", ")))"
-        if let modifiers = declaration.modifiers {
+//        if
+            let modifiers = declaration.modifiers
+//        {
             varDelcaration = "\(modifiers)varDelcaration"
-        }
+//        }
         varDelcaration = "#if DEBUG\n\(varDelcaration)\n#endif"
         return varDelcaration
     }
