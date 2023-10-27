@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Debug Client",
+      "program": "${workspaceFolder:SwiftMacros}/.build/debug/Client",
+      "args": [],
+      "cwd": "${workspaceFolder:SwiftMacros}",
+      "preLaunchTask": "swift: Build Debug Client"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "name": "Release Client",
+      "program": "${workspaceFolder:SwiftMacros}/.build/release/Client",
+      "args": [],
+      "cwd": "${workspaceFolder:SwiftMacros}",
+      "preLaunchTask": "swift: Build Release Client"
+    }
+  ]
+}

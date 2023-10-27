@@ -83,10 +83,11 @@ public struct URLBuilder {
         [expression]
     }
 
-    public static func buildFinalResult(_ components: [URLComponent]) -> URL? {
+    public static func buildFinalResult(_ components: [URLComponent]) -> URL {
         let componentDict = Dictionary(grouping: components) { $0 is String }
         let urlString = componentDict[true]?.last as? String ?? ""
-        guard var urlComponents = URLComponents(string: urlString) else { return nil }
+//        guard 
+      var urlComponents = URLComponents(string: urlString)! //else { return nil }
         componentDict[false]?.forEach { component in
             if let fragment = component as? URLFragment {
                 urlComponents.fragment = fragment.value
@@ -108,10 +109,10 @@ public struct URLBuilder {
                 urlComponents.user = user.value
             }
         }
-        return urlComponents.url
+        return urlComponents.url!
     }
 }
 
-public func buildURL(@URLBuilder builder: () -> URL?) -> URL? {
+public func buildURL(@URLBuilder builder: () -> URL) -> URL {
     builder()
 }
