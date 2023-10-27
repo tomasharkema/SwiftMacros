@@ -13,13 +13,13 @@ public struct FormatDateInterval: ExpressionMacro {
         }
 
         let formatter: DeclSyntax = "let formatter = DateIntervalFormatter()"
-        let formatterStatement = CodeBlockItemSyntax(item: .decl(formatter))
+        let formatterStatement = CodeBlockItemSyntax(item: .decl(formatter), trailingTrivia: .newline)
         var statementList = CodeBlockItemListSyntax(arrayLiteral: formatterStatement)
         node.argumentList.dropFirst(2).forEach { tupleExprElementSyntax in
             if let parameter = tupleExprElementSyntax.label?.text,
                !tupleExprElementSyntax.expression.is(NilLiteralExprSyntax.self) {
                 let stmt: StmtSyntax = "formatter.\(raw: parameter) = \(tupleExprElementSyntax.expression)"
-                let codeblock = CodeBlockItemSyntax(item: .stmt(stmt))
+                let codeblock = CodeBlockItemSyntax(item: .stmt(stmt), trailingTrivia: .newline)
                 statementList = statementList.appending(codeblock)
             }
         }

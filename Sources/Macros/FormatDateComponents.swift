@@ -18,7 +18,7 @@ public struct FormatDateComponents: ExpressionMacro {
         } else {
             throw MacroDiagnostics.errorMacroUsage(message: "Not supported parameters")
         }
-        let closure = ClosureExprSyntax(statements: statementList)
+      let closure = ClosureExprSyntax(statements: statementList)
         let function = FunctionCallExprSyntax(callee: closure)
         return ExprSyntax(function)
     }
@@ -27,7 +27,7 @@ public struct FormatDateComponents: ExpressionMacro {
                                             from fromDate: ExprSyntax,
                                             to toDate: ExprSyntax) -> CodeBlockItemListSyntax {
         let formatter: DeclSyntax = "let formatter = DateComponentsFormatter()"
-        let formatterStatement = CodeBlockItemSyntax(item: .decl(formatter))
+      let formatterStatement = CodeBlockItemSyntax(item: .decl(formatter), trailingTrivia: .newline )
         var statementList = CodeBlockItemListSyntax(arrayLiteral: formatterStatement)
         argumentList.dropFirst(2).forEach { tupleExprElementSyntax in
             if let codeblock = codeblock(for: tupleExprElementSyntax) {
@@ -35,7 +35,7 @@ public struct FormatDateComponents: ExpressionMacro {
             }
         }
         let returnValue: ExprSyntax = "return formatter.string(from: \(fromDate), to: \(toDate))"
-        let returnblock = CodeBlockItemSyntax(item: .expr(returnValue))
+      let returnblock = CodeBlockItemSyntax(item: .expr(returnValue), trailingTrivia: .newline )
         statementList = statementList.appending(returnblock)
         return statementList
     }
@@ -43,7 +43,7 @@ public struct FormatDateComponents: ExpressionMacro {
     private static func parseFromFunction(for argumentList: TupleExprElementListSyntax,
                                                   from fromInterval: ExprSyntax) -> CodeBlockItemListSyntax {
         let formatter: DeclSyntax = "let formatter = DateComponentsFormatter()"
-        let formatterStatement = CodeBlockItemSyntax(item: .decl(formatter))
+      let formatterStatement = CodeBlockItemSyntax(item: .decl(formatter), trailingTrivia: .newline )
         var statementList = CodeBlockItemListSyntax(arrayLiteral: formatterStatement)
         argumentList.dropFirst(1).forEach { tupleExprElementSyntax in
             if let codeblock = codeblock(for: tupleExprElementSyntax) {
@@ -51,7 +51,7 @@ public struct FormatDateComponents: ExpressionMacro {
             }
         }
         let returnValue: ExprSyntax = "return formatter.string(from: \(fromInterval))"
-        let returnblock = CodeBlockItemSyntax(item: .expr(returnValue))
+      let returnblock = CodeBlockItemSyntax(item: .expr(returnValue), trailingTrivia: .newline )
         statementList = statementList.appending(returnblock)
         return statementList
     }
@@ -60,7 +60,7 @@ public struct FormatDateComponents: ExpressionMacro {
         if let parameter = tupleExprElementSyntax.label?.text,
            !tupleExprElementSyntax.expression.is(NilLiteralExprSyntax.self) {
             let stmt: StmtSyntax = "formatter.\(raw: parameter) = \(tupleExprElementSyntax.expression)"
-            let codeblock = CodeBlockItemSyntax(item: .stmt(stmt))
+          let codeblock = CodeBlockItemSyntax(item: .stmt(stmt), trailingTrivia: .newline )
             return codeblock
         }
         return nil

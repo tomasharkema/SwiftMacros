@@ -69,12 +69,13 @@ public struct AddInit: MemberMacro {
         }
         var varDelcaration: DeclSyntax = "static let mock = \(raw: identifier)(\(raw: parameters.joined(separator: ", ")))"
 //        if
-            let modifiers = declaration.modifiers
+//            let modifiers = declaration.modifiers
 //        {
-            varDelcaration = "\(modifiers)varDelcaration"
+//            varDelcaration = "\(modifiers)varDelcaration"
 //        }
-        varDelcaration = "#if DEBUG\n\(varDelcaration)\n#endif"
+//        varDelcaration = "#if DEBUG\n\(varDelcaration)\n#endif"
         return varDelcaration
+//      return DeclSyntax("")
     }
 }
 
