@@ -265,7 +265,7 @@ public macro buildDate(_ components: DateComponent...) -> Date? = #externalMacro
 /// }
 /// ```
 @freestanding(expression)
-public macro buildURL(_ components: URLComponent...) -> URL? = #externalMacro(module: "Macros", type: "BuildURL")
+public macro buildURL(_ components: URLComponent...) -> URL = #externalMacro(module: "Macros", type: "BuildURL")
 
 /// Build a URLRequest from components.
 /// This solution addes in a resultBulder URLRequestBuilder, which can be used directly if prefer builder pattern.
